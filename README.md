@@ -1,4 +1,4 @@
-# VRSL DMX PatchSetter
+# VRSL DMX To HTML
 
 In Unity:
 - VRSL -> Export -> To JSON
