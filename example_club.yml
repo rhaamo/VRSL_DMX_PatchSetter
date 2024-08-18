@@ -1,0 +1,53 @@
+venue:
+  name: Nuclear Club
+  version: 1.0
+  notes:
+gpu_readback_fixtures:
+  - name: Smoke vents Left Front
+    universe: 1
+    channel: 1
+    fixtureDefintion: "GPU ReadBack"
+    channelNames:
+      - On Off
+  - name: Smoke vents Left Center
+    universe: 1
+    channel: 4
+    fixtureDefintion: "GPU ReadBack"
+    channelNames:
+      - On Off
+  - name: Smoke vents Left Back
+    universe: 1
+    channel: 7
+    fixtureDefintion: "GPU ReadBack"
+    channelNames:
+      - On Off
+  - name: Smoke vents Right Front
+    universe: 1
+    channel: 10
+    fixtureDefintion: "GPU ReadBack"
+    channelNames:
+      - On Off
+  - name: Smoke vents Right Center
+    universe: 1
+    channel: 13
+    fixtureDefintion: "GPU ReadBack"
+    channelNames:
+      - On Off
+  - name: Smoke vents Right Back
+    universe: 1
+    channel: 16
+    fixtureDefintion: "GPU ReadBack"
+    channelNames:
+      - On Off
+  - name: Fog Dancefloor
+    universe: 1
+    channel: 19
+    fixtureDefintion: "GPU ReadBack"
+    channelNames:
+      - On Off
+  - name: Rotating Lights
+    universe: 1
+    channel: 267
+    fixtureDefintion: "GPU ReadBack"
+    channelNames:
+      - On Off

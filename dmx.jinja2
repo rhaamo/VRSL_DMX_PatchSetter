@@ -1,0 +1,89 @@
+<style type="text/css">
+.fixtures_list th, .fixtures_list td {
+    border-bottom: 1px solid #ddd;
+}
+
+.universe_occupancy {
+    font-size: 1em;
+    font-family: monospace, monospace;
+}
+.universe_occupancy td {
+    height: 2em;
+    width: 1em;
+    text-align: center;
+}
+.universe_occupancy td.used {
+    background-color: red;
+}
+.universe_occupancy td.free {
+    background-color: green;
+}
+</style>
+
+<center>
+    <h2>{{ dmx_venue.name }}</h2>
+</center>
+
+<hr>
+<center>
+Venue: {{ dmx_venue.name }}<br />
+Document version: {{ dmx_venue.version }}<br />
+Document generated: {{ gen.date.strftime('%Y-%m-%d %H:%M %Z') }}<br />
+Notes: {{ dmx_venue.notes or "None" }}
+</center>
+<hr>
+
+<center><h2>DMX Channels Usage</h2></center>
+
+{% for universe in dmx_universes %}
+{% set fixtures = dmx_universes[universe] %}
+{% if fixtures|length > 0 %}
+<center>
+<h3>Universe {{ universe }}</h3>
+
+<table class="universe_occupancy">
+{% for row in dmx_universes_occupancy[universe]|batch(32) %}
+<tr>
+{% for col in row %}
+{% if dmx_universes_occupancy[universe][col].used %}
+<td class="used">{{ col if dmx_universes_occupancy[universe][col].main_channel }}</td>
+{% else %}
+<td class="free">{{ col }}</td>
+{% endif %}
+{% endfor %}
+</tr>
+{% endfor %}
+</table>
+
+</center>
+{% endif %}
+{% endfor %}
+
+<hr>
+
+{% for universe in dmx_universes %}
+{% set fixtures = dmx_universes[universe] %}
+{% if fixtures|length > 0 %}
+<center>
+<h2>Fixtures in universe {{ universe }}</h2>
+
+<table class="fixtures_list">
+    <tr>
+        <th width="400px">Name</th>
+        <th width="300px">Fixture Definition</th>
+        <th width="200px">Channel</th>
+        <th width="300px">Channel names</th>
+    </tr>
+    {% for fixture in fixtures %}
+    <tr>
+        <td>{{ fixture.name }}</td>
+        <td>{{ fixture.fixtureDefintion }}</td>
+        <td>{{ fixture.channel }} <small>.. {{ fixture.channel + fixture.channelNames|length - 1 }}</small></td>
+        <td>{{ fixture.channelNames|join('<br/>') }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</center>
+{% endif %}
+{% endfor %}
