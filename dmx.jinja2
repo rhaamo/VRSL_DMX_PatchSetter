@@ -15,6 +15,9 @@
 .universe_occupancy td.used {
     background-color: red;
 }
+.universe_occupancy td.used-darker {
+    background-color: rgb(204, 0, 0);
+}
 .universe_occupancy td.free {
     background-color: green;
 }
@@ -37,26 +40,30 @@ Notes: {{ dmx_venue.notes or "None" }}
 
 {% for universe in dmx_universes %}
 {% set fixtures = dmx_universes[universe] %}
-{% if fixtures|length > 0 %}
-<center>
-<h3>Universe {{ universe }}</h3>
+    {% if fixtures|length > 0 %}
+        <center>
+        <h3>Universe {{ universe }}</h3>
 
-<table class="universe_occupancy">
-{% for row in dmx_universes_occupancy[universe]|batch(32) %}
-<tr>
-{% for col in row %}
-{% if dmx_universes_occupancy[universe][col].used %}
-<td class="used">{{ col if dmx_universes_occupancy[universe][col].main_channel }}</td>
-{% else %}
-<td class="free">{{ col }}</td>
-{% endif %}
-{% endfor %}
-</tr>
-{% endfor %}
-</table>
+        <table class="universe_occupancy">
+        {% set odd = namespace(value=true) %}
+        {% for row in dmx_universes_occupancy[universe]|batch(32) %}
+            <tr>
+            {% for col in row %}
+                {% if dmx_universes_occupancy[universe][col].used %}
+                    {% if dmx_universes_occupancy[universe][col].main_channel %}
+                        {% set odd.value = false if odd.value else true %}
+                    {% endif %}
+                    <td class="used{{ '-darker' if odd.value else '' }}">{{ col if dmx_universes_occupancy[universe][col].main_channel }}</td>
+                {% else %}
+                    <td class="free">{{ col }}</td>
+                {% endif %}
+            {% endfor %}
+            </tr>
+        {% endfor %}
+        </table>
 
-</center>
-{% endif %}
+        </center>
+    {% endif %}
 {% endfor %}
 
 <hr>
