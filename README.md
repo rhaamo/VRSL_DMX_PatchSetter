@@ -2,6 +2,7 @@
 
 In Unity:
 - VRSL -> Export -> To JSON
+
 Then:
 - Copy the json file where the python script is
 - Copy the `example.yml` to whatever you want
